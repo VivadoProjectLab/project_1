@@ -66,11 +66,26 @@ begin
 		end case;
 	end process get_input;
 	
+	get_cflag: process(current_state, operation_data, add_result, sub_result, and_result, or_result, xor_result, not_result, sll_result, srl_result, sra_result, rol_result)
+	begin
+		case current_state is
+			when "0001"=>cflag<=cflag;
+			when "0010"=>cflag<=cflag;
+			when "0100"=>
+				case operation_data is
+					when "0000"=>
+						
+				end case;
+			when "1000"=>cflag<=cflag;
+			when others=>cflag<=cflag;
+		end case;
+	end process get_cflag;
+	
 	get_output: process(current_state, operation_data, add_result, sub_result, and_result, or_result, xor_result, not_result, sll_result, srl_result, sra_result, rol_result)
 	begin
 		case current_state is
-			when "0001"=>output_data<="0000000000000000";
-			when "0010"=>output_data<="0000000000000000";
+			when "0001"=>output_data<=input_A;
+			when "0010"=>output_data<=input_B;
 			when "0100"=>
 				case operation_data is
 					when "0000"=>output_data<=std_logic_vector(add_result);

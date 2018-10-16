@@ -36,7 +36,8 @@ entity ALU is
 		clk, rst:in std_logic;
 		input_data:in std_logic_vector(15 downto 0);
 		output_data:out std_logic_vector(15 downto 0);
-		operation_data:in std_logic_vector(3 downto 0)
+		operation_data:in std_logic_vector(3 downto 0);
+		state_number: out std_logic_vector(1 downto 0)
 	);
 end ALU;
 
@@ -74,4 +75,16 @@ begin
 			operation_data=>operation_data,
 			current_state=>state_data
 		);
+		
+	state_number_output: process(state_data)
+	begin
+		case state_data is
+			when "0001"=>state_number<="00";
+			when "0010"=>state_number<="01";
+			when "0100"=>state_number<="10";
+			when "1000"=>state_number<="11";
+			when others=>state_number<="00";
+		end case;
+	end process state_number_output;
+	
 end Behavioral;
